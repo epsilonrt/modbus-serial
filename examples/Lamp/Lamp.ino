@@ -17,7 +17,7 @@ ModbusSerial mb;
 
 void setup() {
     // Config Modbus Serial (port, speed, byte format) 
-    mb.config(&Serial, 38400, SERIAL_8N1);
+    mb.config(&Serial, 38400, MB_PARITY_EVEN);
     // Set the Slave ID (1-247)
     mb.setSlaveId(10);  
     
