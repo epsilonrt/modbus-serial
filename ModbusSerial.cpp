@@ -17,7 +17,7 @@ byte ModbusSerial::getSlaveId() {
     return _slaveId;
 }
 
-bool ModbusSerial::config(HardwareSerial* port, long baud, u_int format, int txPin) {
+bool ModbusSerial::config(HardwareSerial* port, long baud, byte format, int txPin) {
     this->_port = port;
     this->_txPin = txPin;
     (*port).begin(baud, format);
@@ -66,7 +66,7 @@ bool ModbusSerial::config(SoftwareSerial* port, long baud, int txPin) {
 #endif
 
 #ifdef __AVR_ATmega32U4__
-bool ModbusSerial::config(Serial_* port, long baud, u_int format, int txPin) {
+bool ModbusSerial::config(Serial_* port, long baud, byte format, int txPin) {
     this->_port = port;
     this->_txPin = txPin;
     (*port).begin(baud, format);
@@ -93,7 +93,7 @@ bool ModbusSerial::receive(byte* frame) {
     //first byte of frame = address
     byte address = frame[0];
     //Last two bytes = crc
-    u_int crc = ((frame[_len - 2] << 8) | frame[_len - 1]);
+    word crc = ((frame[_len - 2] << 8) | frame[_len - 1]);
 
     //Slave Check
     if (address != 0xFF && address != this->getSlaveId()) {
@@ -202,8 +202,3 @@ word ModbusSerial::calcCrc(byte address, byte* pduFrame, byte pduLen) {
 
     return (CRCHi << 8) | CRCLo;
 }
-
-
-
-
-

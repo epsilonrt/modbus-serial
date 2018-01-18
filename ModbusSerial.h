@@ -1,6 +1,6 @@
 /*
     ModbusSerial.h - Header for ModbusSerial Library
-    Copyright (C) 2014 André Sarmento Barbosa
+    Copyright (C) 2014 AndrÃ© Sarmento Barbosa
 */
 #include <Arduino.h>
 #include <Modbus.h>
@@ -18,7 +18,7 @@ class ModbusSerial : public Modbus {
     private:
         Stream* _port;
         long  _baud;
-        u_int _format;
+        byte _format;
         int   _txPin;
         unsigned int _t15; // inter character time out
         unsigned int _t35; // frame delay
@@ -28,12 +28,12 @@ class ModbusSerial : public Modbus {
         ModbusSerial();
         bool setSlaveId(byte slaveId);
         byte getSlaveId();
-        bool config(HardwareSerial* port, long baud, u_int format, int txPin=-1);
+        bool config(HardwareSerial* port, long baud, byte format, int txPin=-1);
         #ifdef USE_SOFTWARE_SERIAL
         bool config(SoftwareSerial* port, long baud, int txPin=-1);
         #endif
         #ifdef __AVR_ATmega32U4__
-        bool config(Serial_* port, long baud, u_int format, int txPin=-1);
+        bool config(Serial_* port, long baud, byte format, int txPin=-1);
         #endif
         void task();
         bool receive(byte* frame);
@@ -41,7 +41,7 @@ class ModbusSerial : public Modbus {
         bool send(byte* frame);
 };
 
-/* Table of CRC values for high–order byte */
+/* Table of CRC values for highÂ–order byte */
 const byte _auchCRCHi[] = {
     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81,
 	0x40, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81, 0x40, 0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0,
@@ -62,7 +62,7 @@ const byte _auchCRCHi[] = {
 	0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81,
 	0x40};
 
-/* Table of CRC values for low–order byte */
+/* Table of CRC values for lowÂ–order byte */
 const byte _auchCRCLo[] = {
     0x00, 0xC0, 0xC1, 0x01, 0xC3, 0x03, 0x02, 0xC2, 0xC6, 0x06, 0x07, 0xC7, 0x05, 0xC5, 0xC4,
 	0x04, 0xCC, 0x0C, 0x0D, 0xCD, 0x0F, 0xCF, 0xCE, 0x0E, 0x0A, 0xCA, 0xCB, 0x0B, 0xC9, 0x09,
