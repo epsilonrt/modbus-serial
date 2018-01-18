@@ -1,6 +1,7 @@
 /*
     ModbusSerial.cpp - Source for Modbus Serial Library
     Copyright (C) 2014 André Sarmento Barbosa
+    Copyright (C) 2018 epsilonrt
 */
 #include "ModbusSerial.h"
 
@@ -17,10 +18,17 @@ byte ModbusSerial::getSlaveId() {
     return _slaveId;
 }
 
-bool ModbusSerial::config(HardwareSerial* port, long baud, byte format, int txPin) {
+bool ModbusSerial::config(HardwareSerial* port, long baud, byte parity, int txPin) {
     this->_port = port;
     this->_txPin = txPin;
-    (*port).begin(baud, format);
+    
+    if ((parity != MB_PARITY_NONE) &&
+        (parity != MB_PARITY_EVEN) &&
+        (parity != MB_PARITY_ODD)) {
+        
+        parity = MB_PARITY_EVEN;
+    }
+    (*port).begin(baud, parity);
 
     delay(2000);
 
@@ -33,14 +41,18 @@ bool ModbusSerial::config(HardwareSerial* port, long baud, byte format, int txPi
         _t15 = 750;
         _t35 = 1750;
     } else {
-        _t15 = 15000000/baud; // 1T * 1.5 = T1.5
-        _t35 = 35000000/baud; // 1T * 3.5 = T3.5
+        _t15 = 16500000UL/baud; // 1T * 1.5 = T1.5, 1T = 11 bits
+        _t35 = 38500000UL/baud; // 1T * 3.5 = T3.5, 1T = 11 bits
     }
 
     return true;
 }
 
 #ifdef USE_SOFTWARE_SERIAL
+/*
+ * Remark: The SoftwareSerial use 8N1 format, this does not respect the 
+ * MODBUS over serial line specification and implementation...
+ */
 bool ModbusSerial::config(SoftwareSerial* port, long baud, int txPin) {
     this->_port = port;
     this->_txPin = txPin;
@@ -57,8 +69,8 @@ bool ModbusSerial::config(SoftwareSerial* port, long baud, int txPin) {
         _t15 = 750;
         _t35 = 1750;
     } else {
-        _t15 = 15000000/baud; // 1T * 1.5 = T1.5
-        _t35 = 35000000/baud; // 1T * 3.5 = T3.5
+        _t15 = 15000000UL/baud; // 1T * 1.5 = T1.5
+        _t35 = 35000000UL/baud; // 1T * 3.5 = T3.5
     }
 
     return true;
@@ -66,10 +78,17 @@ bool ModbusSerial::config(SoftwareSerial* port, long baud, int txPin) {
 #endif
 
 #ifdef __AVR_ATmega32U4__
-bool ModbusSerial::config(Serial_* port, long baud, byte format, int txPin) {
+bool ModbusSerial::config(Serial_* port, long baud, byte parity, int txPin) {
     this->_port = port;
     this->_txPin = txPin;
-    (*port).begin(baud, format);
+    
+    if ((parity != MB_PARITY_NONE) &&
+        (parity != MB_PARITY_EVEN) &&
+        (parity != MB_PARITY_ODD)) {
+        
+        parity = MB_PARITY_EVEN;
+    }
+    (*port).begin(baud, parity);
     while (!(*port));
 
     if (txPin >= 0) {
@@ -81,8 +100,8 @@ bool ModbusSerial::config(Serial_* port, long baud, byte format, int txPin) {
         _t15 = 750;
         _t35 = 1750;
     } else {
-        _t15 = 15000000/baud; // 1T * 1.5 = T1.5
-        _t35 = 35000000/baud; // 1T * 3.5 = T3.5
+        _t15 = 16500000UL/baud; // 1T * 1.5 = T1.5, 1T = 11 bits
+        _t35 = 38500000UL/baud; // 1T * 3.5 = T3.5, 1T = 11 bits
     }
 
     return true;

@@ -14,6 +14,32 @@
 #include <SoftwareSerial.h>
 #endif
 
+/*
+ * See paragraph [2.5.1 RTU Transmission Mode] from
+ * MODBUS over serial line specification and implementation guide V1.02
+ * http://www.modbus.org/docs/Modbus_over_serial_line_V1_02.pdf 
+ * ---------:
+ * The format ( 11 bits ) for each byte in RTU mode is :
+ * Coding System:
+ *  8–bit binary
+ * Bits per Byte:
+ *  1 start bit
+ *  8 data bits, least significant bit sent first
+ *  1 bit for parity completion
+ *  1 stop bit
+ * 
+ * Even parity is required, other modes ( odd parity, no parity ) 
+ * may also be used. In order to ensure a maximum compatibility with 
+ * other products, it is recommended to support also No parity mode. 
+ * The default parity mode must be even parity.
+ * Remark : the use of no parity requires 2 stop bits.
+ */
+enum MB_PARITY {
+  MB_PARITY_NONE = SERIAL_8N2,
+  MB_PARITY_EVEN = SERIAL_8E1,
+  MB_PARITY_ODD  = SERIAL_8O1
+};
+  
 class ModbusSerial : public Modbus {
     private:
         Stream* _port;
@@ -28,12 +54,12 @@ class ModbusSerial : public Modbus {
         ModbusSerial();
         bool setSlaveId(byte slaveId);
         byte getSlaveId();
-        bool config(HardwareSerial* port, long baud, byte format, int txPin=-1);
+        bool config(HardwareSerial* port, long baud, byte parity=MB_PARITY_EVEN, int txPin=-1);
         #ifdef USE_SOFTWARE_SERIAL
         bool config(SoftwareSerial* port, long baud, int txPin=-1);
         #endif
         #ifdef __AVR_ATmega32U4__
-        bool config(Serial_* port, long baud, byte format, int txPin=-1);
+        bool config(Serial_* port, long baud, byte parity=MB_PARITY_EVEN, int txPin=-1);
         #endif
         void task();
         bool receive(byte* frame);
