@@ -14,19 +14,26 @@
 #include <SoftwareSerial.h>
 #endif
 
-/*
+/**
+ * @enum MB_PARITY
+ * @brief Parity
+ * 
  * See paragraph [2.5.1 RTU Transmission Mode] from
  * MODBUS over serial line specification and implementation guide V1.02
  * http://www.modbus.org/docs/Modbus_over_serial_line_V1_02.pdf 
- * ---------:
- * The format ( 11 bits ) for each byte in RTU mode is :
+ * 
+ * The format (11 bits) for each byte in RTU mode is :
  * Coding System:
- *  8–bit binary
+ * 
+ * * 8–bit binary
+ * 
  * Bits per Byte:
- *  1 start bit
- *  8 data bits, least significant bit sent first
- *  1 bit for parity completion
- *  1 stop bit
+ * 
+ *  * 1 start bit
+ *  * 8 data bits, least significant bit sent first
+ *  * 1 bit for parity completion
+ *  * 1 stop bit
+ *  .
  * 
  * Even parity is required, other modes ( odd parity, no parity ) 
  * may also be used. In order to ensure a maximum compatibility with 
@@ -35,12 +42,17 @@
  * Remark : the use of no parity requires 2 stop bits.
  */
 enum MB_PARITY {
-  MB_PARITY_NONE = SERIAL_8N2,
-  MB_PARITY_EVEN = SERIAL_8E1,
-  MB_PARITY_ODD  = SERIAL_8O1
+  MB_PARITY_NONE = SERIAL_8N2, ///< No parity
+  MB_PARITY_EVEN = SERIAL_8E1, ///< Even parity
+  MB_PARITY_ODD  = SERIAL_8O1  ///< Odd parity
 };
-  
+
+/**
+ * @class ModbusSerial
+ * @brief Modbus over serial line Class
+ */
 class ModbusSerial : public Modbus {
+#ifndef __DOXYGEN__
     private:
         Stream* _port;
         long  _baud;
@@ -50,23 +62,81 @@ class ModbusSerial : public Modbus {
         unsigned int _t35; // frame delay
         byte  _slaveId;
         word calcCrc(byte address, byte* pduframe, byte pdulen);
-    public:
-        ModbusSerial();
-        bool setSlaveId(byte slaveId);
-        byte getSlaveId();
-        bool config(HardwareSerial* port, long baud, byte parity=MB_PARITY_EVEN, int txPin=-1);
-        #ifdef USE_SOFTWARE_SERIAL
-        bool config(SoftwareSerial* port, long baud, int txPin=-1);
-        #endif
-        #ifdef __AVR_ATmega32U4__
-        bool config(Serial_* port, long baud, byte parity=MB_PARITY_EVEN, int txPin=-1);
-        #endif
-        void task();
+#endif
+    protected:
         bool receive(byte* frame);
         bool sendPDU(byte* pduframe);
         bool send(byte* frame);
+
+    public:
+        /**
+         * @brief Default constructor
+         */
+        ModbusSerial();
+        /**
+         * @brief Connect an ModbusSerial object to a hardware serial port
+         * @param port pointer on serial port to use, &Serial most of the time, or &Serial1, &Serial2 ... if available
+         * @param baud baudrate
+         * @param parity parity
+         * @param txenPin if an RS485 circuit is used, this corresponds to the 
+         * pin number connected to the transmit enable (DE) and receive disable (/RE) pin.
+         * -1 if not used.
+         * @return true, false if error occured
+         */
+        bool config(HardwareSerial * port, long baud, byte parity=MB_PARITY_EVEN, int txenPin=-1);
+
+#ifdef __DOXYGEN__
+        /**
+         * @brief Connect an ModbusSerial object to a software serial port
+         * @warning The SoftwareSerial use 8N1 format, this does not respect the 
+         * MODBUS RTU specifications (2 stop bits if no parity)...
+         * @param port pointer on serial port to use
+         * @param baud baudrate
+         * @param txenPin if an RS485 circuit is used, this corresponds to the 
+         * pin number connected to the transmit enable (DE) and receive disable (/RE) pin.
+         * -1 if not used.
+         * @return true, false if error occured
+         */
+        bool config(SoftwareSerial* port, long baud, int txenPin=-1);
+        /**
+         * @brief Connect an ModbusSerial object to a hardware serial port
+         * Variant in the case of an ATMEGA32U4 (Leonardo).
+         * @param port pointer on serial port to use, &Serial most of the time, or &Serial1, &Serial2 ... if available
+         * @param baud baudrate
+         * @param parity parity
+         * @param txenPin if an RS485 circuit is used, this corresponds to the 
+         * pin number connected to the transmit enable (DE) and receive disable (/RE) pin.
+         * -1 if not used.
+         * @return true, false if error occured
+         */
+        bool config(Serial_ * port, long baud, byte parity=MB_PARITY_EVEN, int txenPin=-1);
+#else        
+        #ifdef USE_SOFTWARE_SERIAL
+        bool config(SoftwareSerial* port, long baud, int txenPin=-1);
+        #endif
+        #ifdef __AVR_ATmega32U4__
+        bool config(Serial_ * port, long baud, byte parity=MB_PARITY_EVEN, int txenPin=-1);
+        #endif
+#endif
+        /**
+         * @brief Task that performs all operations on MODBUS
+         * 
+         * Call once inside loop(), all magic here !
+         */
+        void task();
+        /**
+         * @brief Change the value of slave identifier
+         * @param slaveId identifier 1-247
+         * @return true, false if error occured
+         */
+        bool setSlaveId(byte slaveId);
+        /**
+         * @brief Return slave identifier
+         */
+        byte getSlaveId();
 };
 
+#ifndef __DOXYGEN__
 /* Table of CRC values for highorder byte */
 const byte _auchCRCHi[] = {
     0x00, 0xC1, 0x81, 0x40, 0x01, 0xC0, 0x80, 0x41, 0x01, 0xC0, 0x80, 0x41, 0x00, 0xC1, 0x81,
@@ -108,5 +178,6 @@ const byte _auchCRCLo[] = {
 	0x48, 0x49, 0x89, 0x4B, 0x8B, 0x8A, 0x4A, 0x4E, 0x8E, 0x8F, 0x4F, 0x8D, 0x4D, 0x4C, 0x8C,
 	0x44, 0x84, 0x85, 0x45, 0x87, 0x47, 0x46, 0x86, 0x82, 0x42, 0x43, 0x83, 0x41, 0x81, 0x80,
 	0x40};
+#endif
 
 #endif //MODBUSSERIAL_H
