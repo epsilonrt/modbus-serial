@@ -180,6 +180,12 @@ bool ModbusSerial::sendPDU(byte* pduframe) {
     }
 }
 
+void ModbusSerial::reportServerId() {
+  
+    Modbus::reportServerId();
+    _frame[2] = getSlaveId(); // Server ID
+}
+
 void ModbusSerial::task() {
     _len = 0;
 

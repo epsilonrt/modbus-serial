@@ -67,6 +67,7 @@ class ModbusSerial : public Modbus {
         bool receive(byte* frame);
         bool sendPDU(byte* pduframe);
         bool send(byte* frame);
+        void reportServerId();
 
     public:
         /**
