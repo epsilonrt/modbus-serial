@@ -23,6 +23,7 @@ void setup() {
     mb.config(&Serial, 38400, MB_PARITY_EVEN);
     // Set the Slave ID (1-247)
     mb.setSlaveId(10); 
+    // mb.setAdditionalServerData ("SERVO"); // for Report Server ID function
     
     // Attaches the servo pin to the servo object
     servo.attach(servoPin); 

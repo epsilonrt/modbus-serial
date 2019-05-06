@@ -33,6 +33,7 @@ void setup() {
   mb.config (port, 38400, MB_PARITY_EVEN, txenPin);
   // Set the Slave ID
   mb.setSlaveId (MODBUS_SLAVE);
+  // mb.setAdditionalServerData ("LAMP_DIMMER"); // for Report Server ID function
 
   // Set ledPin
   pinMode (ledPin, OUTPUT);

@@ -23,6 +23,7 @@ void setup() {
     mb.config(&Serial, 38400, MB_PARITY_EVEN);
     // Set the Slave ID (1-247)
     mb.setSlaveId(10);  
+    // mb.setAdditionalServerData ("TEMP_SENSOR"); // for Report Server ID function
 
     // Add SENSOR_IREG register - Use addIreg() for analog Inputs
     mb.addIreg(SENSOR_IREG);
