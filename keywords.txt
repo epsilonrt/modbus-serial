@@ -14,5 +14,3 @@ sendPDU         KEYWORD2
 send            KEYWORD2
 
 # Constants (LITERAL1)
-_auchCRCHi      LITERAL1
-_auchCRCLo      LITERAL1
