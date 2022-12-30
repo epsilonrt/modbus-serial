@@ -38,6 +38,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install --upgrade platformio
     - name: Step 6 - Run build examples using PlatformIO
-      run: pio ci --lib="." -b uno -b due -b nano_33_iot -b esp12e -b esp32dev
+      run: pio ci --lib="." -b uno -b leonardo -b nano_33_iot -b esp32dev
       env:
         PLATFORMIO_CI_SRC: ${{ matrix.example }}

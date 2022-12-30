@@ -7,8 +7,7 @@ Over Serial Line Implementation RTU (OSI 2/OSI 1)
 
 [![PlatformIO Registry](https://badges.registry.platformio.org/packages/epsilonrt/library/modbus-serial.svg)](https://registry.platformio.org/libraries/epsilonrt/modbus-serial) 
 [![Platform ATMELAVR](https://img.shields.io/badge/Platform-AtmelAVR-blue)](#)
-[![Platform ATMELSAM](https://img.shields.io/badge/Platform-AtmelSAM-blue)](#)
-[![Platform ESP8266](https://img.shields.io/badge/Platform-Espressif8266-orange)](#)
+[![Platform ATMELSAM](https://img.shields.io/badge/Platform-AtmelSAMD-blue)](#)
 [![Platform ESP32](https://img.shields.io/badge/Platform-Espressif32-orange)](#)
 
 ---
