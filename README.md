@@ -1,5 +1,17 @@
-Modbus Library for Arduino - Over Serial Line Implementation RTU (OSI 2/OSI 1)
-==============================================================================
+# Modbus Library for Arduino
+Over Serial Line Implementation RTU (OSI 2/OSI 1)
+
+[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/epsilonrt/modbus-serial?include_prereleases)](https://github.com/epsilonrt/modbus-serial/releases) 
+[![Framework](https://img.shields.io/badge/Framework-Arduino-blue)](https://www.arduino.cc/)
+[![Build](https://github.com/epsilonrt/modbus-serial/actions/workflows/build.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build.yml) 
+
+[![PlatformIO Registry](https://badges.registry.platformio.org/packages/epsilonrt/library/modbus-serial.svg)](https://registry.platformio.org/libraries/epsilonrt/modbus-serial) 
+[![Platform ATMELAVR](https://img.shields.io/badge/Platform-AtmelAVR-blue)](#)
+[![Platform ATMELSAM](https://img.shields.io/badge/Platform-AtmelSAM-blue)](#)
+[![Platform ESP8266](https://img.shields.io/badge/Platform-Espressif8266-orange)](#)
+[![Platform ESP32](https://img.shields.io/badge/Platform-Espressif32-orange)](#)
+
+---
 
 This library allows your Arduino to communicate via Modbus protocol. The Modbus is a master-slave protocol
 used in industrial automation and can be used in other areas, such as home automation.
