@@ -8,9 +8,6 @@
 #include <Modbus.h>
 #include <ModbusSerial.h>
 
-// Serial port used:  Serial most of the time, or Serial1, Serial2 ... if available.
-HardwareSerial * port = &Serial;
-
 // our Modbus slave address (1-247)
 const int MODBUS_SLAVE = 10;
 // Modbus Registers Offsets (0-9999), PDU adressing ! from the data model we have to add 1
@@ -31,7 +28,7 @@ ModbusSerial mb;
 void setup() {
   // Config Modbus Serial (port, speed, byte format)
   // Remark : the use of no parity requires 2 stop bits.
-  mb.config (port, 38400, MB_PARITY_EVEN, txenPin);
+  mb.config (&Serial, 38400, MB_PARITY_EVEN, txenPin);
   // Set the Slave ID
   mb.setSlaveId (MODBUS_SLAVE);
   // mb.setAdditionalServerData ("LAMP_DIMMER"); // for Report Server ID function
