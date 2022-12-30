@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="modbus-serial" Database="" Version="10.0.0">
+  <Project Name="doc" Path="doc/doc.project" Active="Yes"/>
+  <Project Name="library" Path="library.project" Active="No"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Environment/>
+      <Project Name="doc" ConfigName="Debug"/>
+      <Project Name="library" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="yes">
+      <Environment/>
+      <Project Name="doc" ConfigName="Release"/>
+      <Project Name="library" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>

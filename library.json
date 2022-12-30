@@ -1,0 +1,33 @@
+{
+  "name": "Modbus-Serial",
+  "version": "1.0.0",
+  "keywords": "modbus, server, slave, rtu, serial",
+  "description": "A library that allows your Arduino to communicate via Modbus protocol, acting as a slave. Over serial line implementation (OSI 2/OSI 1)",
+  "homepage": "https://github.com/epsilonrt/modbus-serial",
+  "authors":
+  [
+    {
+      "name": "Pascal JEAN aka epsilonrt",
+      "url": "https://github.com/epsilonrt",
+      "maintainer": true
+    },
+    {
+      "name": "André Sarmento Barbosa",
+      "url": "https://github.com/andresarmento"
+    }
+  ],
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/epsilonrt/modbus-serial.git"
+  },
+  "license": "BSD-3-Clause",
+  "examples":[
+    "examples/*/*.ino"
+  ],
+  "dependencies": {
+    "modbus-arduino": "https://github.com/epsilonrt/modbus-arduino.git#1.1.1"
+  },
+  "frameworks": "arduino",
+  "platforms": "*"
+}

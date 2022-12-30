@@ -1,4 +1,5 @@
-/*
+/**
+  @file LampDimmer.ino
   Modbus-Arduino Example - Lamp dimmer (Modbus Serial)
   Copyright by epsilonrt
   http://github.com/epsilonrt/modbus-arduino

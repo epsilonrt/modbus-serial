@@ -1,7 +1,8 @@
-/*
+/**
+  @file TempSensor.ino
   Modbus-Arduino Example - TempSensor (Modbus Serial)
   Copyright by André Sarmento Barbosa
-  http://github.com/andresarmento/modbus-arduino
+  https://github.com/epsilonrt/modbus-serial
 */
  
 #include <Modbus.h>

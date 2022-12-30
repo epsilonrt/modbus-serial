@@ -1,7 +1,8 @@
-/*
+/**
+  @file Switch.ino
   Modbus-Arduino Example - Switch (Modbus Serial)
   Copyright by André Sarmento Barbosa
-  http://github.com/andresarmento/modbus-arduino
+  https://github.com/epsilonrt/modbus-serial
 */
  
 #include <Modbus.h>
