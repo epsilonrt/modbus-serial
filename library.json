@@ -26,7 +26,7 @@
     "examples/*/*.ino"
   ],
   "dependencies": {
-    "modbus-arduino": "https://github.com/epsilonrt/modbus-arduino.git#1.1.1"
+    "epsilonrt/Modbus-Arduino": "^1.0.0"
   },
   "frameworks": "arduino",
   "platforms": "*"
