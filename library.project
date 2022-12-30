@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="library" Version="10.0.0" InternalType="">
+  <VirtualDirectory Name=".github">
+    <VirtualDirectory Name="workflows">
+      <File Name=".github/workflows/build.yml"/>
+    </VirtualDirectory>
+    <File Name=".github/stale.yml"/>
+  </VirtualDirectory>
   <VirtualDirectory Name="examples">
     <VirtualDirectory Name="Lamp">
       <File Name="examples/Lamp/Lamp.ino"/>
