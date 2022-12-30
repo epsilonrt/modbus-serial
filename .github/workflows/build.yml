@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        example: [examples/Lamp, examples/LampDimmer, examples/Servo, examples/Switch , examples/TempSensor]
+        example: [examples/Lamp, examples/LampDimmer, examples/Switch , examples/TempSensor]
 
     steps:
 
