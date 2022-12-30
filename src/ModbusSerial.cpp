@@ -155,6 +155,7 @@ bool ModbusSerial::send (byte* frame) {
   if (this->_txPin >= 0) {
     digitalWrite (this->_txPin, LOW);
   }
+  return true;
 }
 
 bool ModbusSerial::sendPDU (byte* pduframe) {
@@ -183,6 +184,7 @@ bool ModbusSerial::sendPDU (byte* pduframe) {
   if (this->_txPin >= 0) {
     digitalWrite (this->_txPin, LOW);
   }
+  return true;
 }
 
 void ModbusSerial::reportServerId() {
