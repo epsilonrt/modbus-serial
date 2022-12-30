@@ -18,16 +18,10 @@ byte ModbusSerial::getSlaveId() {
   return _slaveId;
 }
 
-bool ModbusSerial::config (HardwareSerial* port, long baud, byte parity, int txPin) {
+bool ModbusSerial::config (HardwareSerial* port, long baud, MB_PARITY parity, int txPin) {
   this->_port = port;
   this->_txPin = txPin;
 
-  if ( (parity != MB_PARITY_NONE) &&
-       (parity != MB_PARITY_EVEN) &&
-       (parity != MB_PARITY_ODD)) {
-
-    parity = MB_PARITY_EVEN;
-  }
   (*port).begin (baud, parity);
 
   delay (2000);
@@ -80,16 +74,10 @@ bool ModbusSerial::config (SoftwareSerial* port, long baud, int txPin) {
 #endif
 
 #ifdef __AVR_ATmega32U4__
-bool ModbusSerial::config (Serial_* port, long baud, byte parity, int txPin) {
+bool ModbusSerial::config (Serial_* port, long baud, MB_PARITY parity, int txPin) {
   this->_port = port;
   this->_txPin = txPin;
 
-  if ( (parity != MB_PARITY_NONE) &&
-       (parity != MB_PARITY_EVEN) &&
-       (parity != MB_PARITY_ODD)) {
-
-    parity = MB_PARITY_EVEN;
-  }
   (*port).begin (baud, parity);
   while (! (*port));
 

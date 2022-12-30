@@ -83,7 +83,7 @@ class ModbusSerial : public Modbus {
      * -1 if not used.
      * @return true, false if error occured
      */
-    bool config (HardwareSerial * port, long baud, byte parity = MB_PARITY_EVEN, int txenPin = -1);
+    bool config (HardwareSerial * port, long baud, MB_PARITY parity = MB_PARITY_EVEN, int txenPin = -1);
 
 #ifdef __DOXYGEN__
     /**
@@ -109,13 +109,13 @@ class ModbusSerial : public Modbus {
      * -1 if not used.
      * @return true, false if error occured
      */
-    bool config (Serial_ * port, long baud, byte parity = MB_PARITY_EVEN, int txenPin = -1);
+    bool config (Serial_ * port, long baud, MB_PARITY parity = MB_PARITY_EVEN, int txenPin = -1);
 #else
 #ifdef USE_SOFTWARE_SERIAL
     bool config (SoftwareSerial* port, long baud, int txenPin = -1);
 #endif
 #ifdef __AVR_ATmega32U4__
-    bool config (Serial_ * port, long baud, byte parity = MB_PARITY_EVEN, int txenPin = -1);
+    bool config (Serial_ * port, long baud, MB_PARITY parity = MB_PARITY_EVEN, int txenPin = -1);
 #endif
 #endif
     /**
