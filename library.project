@@ -95,5 +95,6 @@
     <File Name="README.md"/>
     <File Name="keywords.txt"/>
     <File Name="library.properties"/>
+    <File Name="Doxyfile"/>
   </VirtualDirectory>
 </CodeLite_Project>
