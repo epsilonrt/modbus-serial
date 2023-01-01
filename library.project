@@ -8,6 +8,7 @@
       <File Name=".github/workflows/build_uno.yml"/>
       <File Name=".github/workflows/build_esp32.yml"/>
       <File Name=".github/workflows/build_esp8266.yml"/>
+      <File Name=".github/workflows/doxygen-gh-pages.yml"/>
     </VirtualDirectory>
     <File Name=".github/stale.yml"/>
   </VirtualDirectory>

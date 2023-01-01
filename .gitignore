@@ -5,8 +5,3 @@
 .vscode/ipch
 .codelite
 .version
-doc/html
-doc/Doxyfile
-doc/avrio.tag
-doc/main_page.dox
-doc/version.mk
