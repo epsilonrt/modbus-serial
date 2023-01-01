@@ -9,7 +9,7 @@
 #include <ModbusSerial.h>
 
 // Used Pins
-const int LedPin = LED_BUILTIN;
+const int LedPin = 13; // Change that to match your led
 const int TxenPin = -1; // -1 disables the feature, change that if you are using an RS485 driver, this pin would be connected to the DE and /RE pins of the driver.
 
 const byte SlaveId = 10;
