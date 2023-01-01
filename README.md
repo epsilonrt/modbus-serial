@@ -2,13 +2,15 @@
 Over Serial Line Implementation RTU (OSI 2/OSI 1)
 
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/epsilonrt/modbus-serial?include_prereleases)](https://github.com/epsilonrt/modbus-serial/releases) 
-[![Framework](https://img.shields.io/badge/Framework-Arduino-blue)](https://www.arduino.cc/)
-[![Build](https://github.com/epsilonrt/modbus-serial/actions/workflows/build.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build.yml) 
-
 [![PlatformIO Registry](https://badges.registry.platformio.org/packages/epsilonrt/library/modbus-serial.svg)](https://registry.platformio.org/libraries/epsilonrt/modbus-serial) 
-[![Platform ATMELAVR](https://img.shields.io/badge/Platform-AtmelAVR-blue)](#)
-[![Platform ATMELSAM](https://img.shields.io/badge/Platform-AtmelSAMD-blue)](#)
-[![Platform ESP32](https://img.shields.io/badge/Platform-Espressif32-orange)](#)
+
+[![Framework](https://img.shields.io/badge/Framework-Arduino-blue)](https://www.arduino.cc/)
+[![Uno](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_uno.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_uno.yml) 
+[![Due](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_due.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_due.yml) 
+[![Mega](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_mega.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_mega.yml) 
+[![Nano33IoT](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_nano33iot.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_nano33iot.yml) 
+[![Esp8266](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_esp8266.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_esp8266.yml) 
+[![Esp32](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_esp32.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_esp32.yml) 
 
 ---
 
@@ -27,60 +29,84 @@ There are four classes corresponding to five headers that may be used:
 * [ModbusEthercard](https://github.com/epsilonrt/modbus-ethercard) - Modbus TCP Library (for ENC28J60 chip)  
 * [ModbusEsp8266AT](https://github.com/epsilonrt/modbus-esp8266at) - Modbus IP Library (for ESP8266 chip with AT firmware)   
 
-By opting for Modbus Serial or Modbus TCP you must include in your sketch the corresponding header and the base library header, eg:
+By opting for Modbus Serial or Modbus TCP you must include in your sketch the corresponding header, eg:
 
-    #include <Modbus.h>
     #include <ModbusSerial.h>
 
 ## ModbusSerial
 
-There are four examples that can be accessed from the Arduino interface, once you have installed the library.
+There are five examples that can be accessed from the Arduino IDE or Visual 
+Studio Code with Platformio, once you have installed the library.
 Let's look at the example Lamp.ino (only the parts concerning Modbus will be commented):
 
-
-    #include <Modbus.h>
     #include <ModbusSerial.h>
 
-Inclusion of the necessary libraries.
+Inclusion of the necessary header.
 
-    const int LAMP1_COIL = 100;
+    const int Lamp1Coil = 0;
 
 Sets the Modbus register to represent a lamp or LED. This value is the offset (0-based) to be placed in its supervisory or testing software.
-Note that if your software uses offsets 1-based the set value there should be 101, for this example.
+Note that if your software uses offsets 1-based the set value there should be 1, for this example.
 
-    ModbusSerial mb;
+    ModbusSerial mb (Serial, SlaveId);
 
-Create the mb instance (ModbusSerial) to be used.
+Create the mb instance (ModbusSerial) to be used with the serial port `Serial`. 
+Note that the serial port is passed as reference, which permits the use of other 
+serial ports in other Arduino models, also ets the slave Id. 
 
-    mb.config (&Serial, 38400, MB_PARITY_EVEN);
-    mb.setSlaveId (10);
+If you are using RS-485 driver,  the configuration of another pin to control 
+transmission/reception is required, this pin would be connected to the DE and 
+/RE pins of the driver. This is done as follows:
 
-Sets the serial port and the slave Id. Note that the serial port is passed as reference, which permits the use of other serial ports in other Arduino models.
-The bitrate and parity is being set. If you are using RS-485 the configuration of another pin to control transmission/reception is required.
-This is done as follows:
+    const int TxenPin = 4;
+    // ....
+    ModbusSerial mb (Serial, SlaveId, TxenPin);
 
-    mb.config (& Serial, 38400, MB_PARITY_EVEN, 2);
+In this case, the pin 4 will be used to control TX/RX (DE must be connected with /RE).
 
-In this case, the pin 2 will be used to control TX/RX.
+    Serial.begin (Baudrate, MB_PARITY_EVEN);
+    while (! Serial)
+      ;
 
-    mb.addCoil (LAMP1_COIL);
+Configure the serial port and wait for it to be ready.
 
-Adds the register type Coil (digital output) that will be responsible for activating the LED or lamp and verify their status.
+To simplify the modification of the port, you can define a macro in the following way :
+
+    #define MySerial Serial // define serial port used, Serial most of the time, or Serial1, Serial2 ... if available
+
+Then the block above can be written as follows :
+
+    ModbusSerial mb (MySerial, SlaveId, TxenPin);
+
+    void setup() {
+
+      MySerial.begin (Baudrate, MB_PARITY_EVEN); // prefer this line in accordance with the modbus standard.
+      while (! MySerial)
+        ;
+
+      mb.config (Baudrate);
+    
+The last line configures the ModbusSerial object.
+
+    mb.addCoil (Lamp1Coil);
+
+Adds the register type Coil (digital output) that will be responsible for 
+activating the LED or lamp and verify their status. 
 The library allows you to set an initial value for the register:
 
-    mb.addCoil (LAMP1_COIL, true);
+    mb.addCoil (Lamp1Coil, true);
 
-In this case the register is added and set to true. If you use the first form the default value is false.
-
+In this case the register is added and set to true. If you use the first form 
+the default value is false.
 
     mb.task ();
 
-This method makes all magic, answering requests and changing the registers if necessary, it should be called only once, early in the loop.
+This method makes all magic, answering requests and changing the registers if 
+necessary, it should be called only once, early in the loop.
 
-    digitalWrite (ledPin, mb.Coil (LAMP1_COIL));
+    digitalWrite (LedPin, mb.Coil (Lamp1Coil));
 
-Finally the value of LAMP1_COIL register is used to drive the lamp or LED.
-
+Finally the value of Lamp1Coil register is used to drive the lamp or LED.
 
 In much the same way, the other examples show the use of other methods available in the library:
 
@@ -108,8 +134,8 @@ Returns the value of a register.
 Contributions
 =============
 http://github.com/epsilonrt/modbus-arduino  
-prof (at) andresarmento (dot) com
-epsilonrt (at) gmail (dot) com
+prof (at) andresarmento (dot) com  
+epsilonrt (at) gmail (dot) com  
 
 License
 =======

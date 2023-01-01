@@ -1,38 +1,48 @@
 /**
-  @file Switch.ino
-  Modbus-Arduino Example - Switch (Modbus Serial)
-  Copyright by André Sarmento Barbosa
-  https://github.com/epsilonrt/modbus-serial
+    @file Switch.ino
+    Modbus-Arduino Example - Switch (Modbus Serial)
+    Copyright (C) 2023 Pascal JEAN aka epsilonrt
+    Copyright (C) 2014 André Sarmento Barbosa
+    https://github.com/epsilonrt/modbus-serial
 */
- 
-#include <Modbus.h>
+
 #include <ModbusSerial.h>
 
-//Modbus Registers Offsets (0-9999)
-const int SWITCH_ISTS = 100; 
-//Used Pins
-const int switchPin = 3;
+// Used Pins
+const int SwitchPin = 3;
+const int TxenPin = -1; // -1 disables the feature, change that if you are using an RS485 driver, this pin would be connected to the DE and /RE pins of the driver.
 
-//ModbusSerial object
-ModbusSerial mb;
+const byte SlaveId = 13;
+// Modbus Registers Offsets (0-9999)
+const int SwitchIsts = 0;
+
+#define MySerial Serial // define serial port used, Serial most of the time, or Serial1, Serial2 ... if available
+const unsigned long Baudrate = 38400;
+
+// ModbusSerial object
+ModbusSerial mb (MySerial, SlaveId, TxenPin);
 
 void setup() {
-    // Config Modbus Serial (port, speed, byte format) 
-    mb.config(&Serial, 38400, MB_PARITY_EVEN);
-    // Set the Slave ID (1-247)
-    mb.setSlaveId(10);  
-    // mb.setAdditionalServerData ("SWITCH"); // for Report Server ID function
+  
+  MySerial.begin (Baudrate); // works on all boards but the configuration is 8N1 which is incompatible with the MODBUS standard
+  // prefer the line below instead if possible
+  // MySerial.begin (Baudrate, MB_PARITY_EVEN);
+  while (! MySerial)
+    ;
+  
+  mb.config (Baudrate);
+  mb.setAdditionalServerData ("SWITCH"); // for Report Server ID function (0x11)
 
-    //Set ledPin mode
-    pinMode(switchPin, INPUT);
-    // Add SWITCH_ISTS register - Use addIsts() for digital inputs 
-    mb.addIsts(SWITCH_ISTS);
+  // Set SwitchPin mode
+  pinMode (SwitchPin, INPUT);
+  // Add SwitchIsts register - Use addIsts() for digital inputs
+  mb.addIsts (SwitchIsts);
 }
 
 void loop() {
-   //Call once inside loop() - all magic here
-   mb.task();
-   
-   //Attach switchPin to SWITCH_ISTS register     
-   mb.Ists(SWITCH_ISTS, digitalRead(switchPin));
+  //Call once inside loop() - all magic here
+  mb.task();
+
+  //Attach SwitchPin to SwitchIsts register
+  mb.Ists (SwitchIsts, digitalRead (SwitchPin));
 }

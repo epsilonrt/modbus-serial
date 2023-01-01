@@ -1,54 +1,57 @@
 /**
-  @file LampDimmer.ino
-  Modbus-Arduino Example - Lamp dimmer (Modbus Serial)
-  Copyright by epsilonrt
-  http://github.com/epsilonrt/modbus-arduino
+    @file LampDimmer.ino
+    Modbus-Arduino Example - Lamp dimmer (Modbus Serial)
+    Copyright (C) 2023 Pascal JEAN aka epsilonrt
+    https://github.com/epsilonrt/modbus-serial
 */
 
-#include <Modbus.h>
 #include <ModbusSerial.h>
 
-// our Modbus slave address (1-247)
-const int MODBUS_SLAVE = 10;
-// Modbus Registers Offsets (0-9999), PDU adressing ! from the data model we have to add 1
-const int LAMP1_COIL = 0;
-const int LAMP1_HREG = 0;
-
 // Used Pins
-const int ledPin = 7; // Must be PWM output !
-const int txenPin = -1; // Set to -1 if no TxEN pin used
+const int LedPin = 3; // Must be PWM output !
+const int TxenPin = -1; // -1 disables the feature, change that if you are using an RS485 driver, this pin would be connected to the DE and /RE pins of the driver.
+
+const byte SlaveId = 11; // our Modbus slave address (1-247)
+// Modbus Registers Offsets (0-9999), PDU adressing ! from the data model we have to add 1
+const int Lamp1Coil = 0;
+const int Lamp1Hreg = 0;
+
+#define MySerial Serial // define serial port used, Serial most of the time, or Serial1, Serial2 ... if available
+const unsigned long Baudrate = 38400;
+
+// ModbusSerial object
+ModbusSerial mb (MySerial, SlaveId, TxenPin);
 
 // Lamp status variables
 bool lampOn = true;
 word lampDimming = 128;
 
-// ModbusSerial object
-ModbusSerial mb;
-
 void setup() {
-  // Config Modbus Serial (port, speed, byte format)
-  // Remark : the use of no parity requires 2 stop bits.
-  mb.config (&Serial, 38400, MB_PARITY_EVEN, txenPin);
-  // Set the Slave ID
-  mb.setSlaveId (MODBUS_SLAVE);
-  // mb.setAdditionalServerData ("LAMP_DIMMER"); // for Report Server ID function
 
-  // Set ledPin
-  pinMode (ledPin, OUTPUT);
+  MySerial.begin (Baudrate); // works on all boards but the configuration is 8N1 which is incompatible with the MODBUS standard
+  // prefer the line below instead if possible
+  // MySerial.begin (Baudrate, MB_PARITY_EVEN);
+  while (! MySerial)
+    ;
 
-  mb.addCoil (LAMP1_COIL, lampOn);
-  mb.addHreg (LAMP1_HREG, lampDimming);
+  mb.config (Baudrate);
+  mb.setAdditionalServerData ("LDIMMER"); // for Report Server ID function (0x11)
 
-  // The led flashes 20 times to signal the end of setup, 
+  // Set LedPin
+  pinMode (LedPin, OUTPUT);
+  mb.addCoil (Lamp1Coil, lampOn);
+  mb.addHreg (Lamp1Hreg, lampDimming);
+
+  // The led flashes 20 times to signal the end of setup,
   // then it is set to its default state.
   for (int i = 0; i < 20; i++) {
 
-    digitalWrite (ledPin, 1);
+    digitalWrite (LedPin, HIGH);
     delay (50);
-    digitalWrite (ledPin, 0);
+    digitalWrite (LedPin, LOW);
     delay (100);
   }
-  analogWrite (ledPin, (lampOn ? lampDimming : 0));
+  analogWrite (LedPin, (lampOn ? lampDimming : 0));
 }
 
 void loop() {
@@ -56,27 +59,27 @@ void loop() {
   // Call once inside loop() - all magic here
   mb.task();
 
-  if (mb.Coil (LAMP1_COIL) != lampOn) {
+  if (mb.Coil (Lamp1Coil) != lampOn) {
     // If coil was modified
 
-    lampOn = mb.Coil (LAMP1_COIL);
+    lampOn = mb.Coil (Lamp1Coil);
     if (lampOn) {
 
-      analogWrite (ledPin, lampDimming);
+      analogWrite (LedPin, lampDimming);
     }
     else {
 
-      analogWrite (ledPin, 0);
+      analogWrite (LedPin, 0);
     }
   }
 
-  if ( (mb.Hreg (LAMP1_HREG) & 0x00FF) != lampDimming) {
+  if ( (mb.Hreg (Lamp1Hreg) & 0x00FF) != lampDimming) {
     // If holding register was modified (only LSB will used)
 
-    lampDimming = (mb.Hreg (LAMP1_HREG) & 0x00FF);
+    lampDimming = (mb.Hreg (Lamp1Hreg) & 0x00FF);
     if (lampOn) {
 
-      analogWrite (ledPin, lampDimming);
+      analogWrite (LedPin, lampDimming);
     }
   }
 }

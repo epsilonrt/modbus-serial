@@ -1,42 +1,55 @@
 /**
-  @file Servo.ino
-  Modbus-Arduino Example - Servo (Modbus Serial)
-  Copyright by André Sarmento Barbosa
-  https://github.com/epsilonrt/modbus-serial
+    @file Servo.ino
+    Copyright (C) 2023 Pascal JEAN aka epsilonrt
+    Copyright (C) 2014 André Sarmento Barbosa
+    https://github.com/epsilonrt/modbus-serial
+
+    Use Servo lib (atmelavr and atmelsam only !)
+    https://registry.platformio.org/libraries/arduino-libraries/Servo
 */
- 
-#include <Modbus.h>
+
 #include <ModbusSerial.h>
 #include <Servo.h>
 
-// Modbus Registers Offsets (0-9999)
-const int SERVO_HREG = 100; 
 // Used Pins
 const int servoPin = 9;
+const int TxenPin = -1; // -1 disables the feature, change that if you are using an RS485 driver, this pin would be connected to the DE and /RE pins of the driver.
+
+const byte SlaveId = 12;
+// Modbus Registers Offsets (0-9999)
+const int ServoHreg = 0;
+
+#define MySerial Serial // define serial port used, Serial most of the time, or Serial1, Serial2 ... if available
+const unsigned long Baudrate = 38400;
 
 // ModbusSerial object
-ModbusSerial mb;
+ModbusSerial mb (MySerial, SlaveId, TxenPin);
 // Servo object
-Servo servo; 
+Servo servo;
 
 void setup() {
-    // Config Modbus Serial (port, speed, byte format) 
-    mb.config(&Serial, 38400, MB_PARITY_EVEN);
-    // Set the Slave ID (1-247)
-    mb.setSlaveId(10); 
-    // mb.setAdditionalServerData ("SERVO"); // for Report Server ID function
-    
-    // Attaches the servo pin to the servo object
-    servo.attach(servoPin); 
-    // Add SERVO_HREG register - Use addHreg() for analog outpus or to store values in device 
-    mb.addHreg(SERVO_HREG, 127);
+
+  MySerial.begin (Baudrate); // works on all boards but the configuration is 8N1 which is incompatible with the MODBUS standard
+  // prefer the line below instead if possible
+  // MySerial.begin (Baudrate, MB_PARITY_EVEN);
+  while (! MySerial)
+    ;
+
+  mb.config (Baudrate);
+  mb.setAdditionalServerData ("SWITCH"); // for Report Server ID function (0x11)
+
+  // Attaches the servo pin to the servo object
+  servo.attach (servoPin);
+  // Add ServoHreg register - Use addHreg() for analog outpus or to store values in device
+  mb.addHreg (ServoHreg, 127);
 }
 
 void loop() {
-   //Call once inside loop() - all magic here
-   mb.task();
-   
-   //Attach switchPin to SWITCH_ISTS register     
-   servo.write(mb.Hreg(SERVO_HREG));
-   delay(15);
+
+  //Call once inside loop() - all magic here
+  mb.task();
+
+  //Attach switchPin to SWITCH_ISTS register
+  servo.write (mb.Hreg (ServoHreg));
+  delay (15);
 }

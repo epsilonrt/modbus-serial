@@ -2,7 +2,12 @@
 <CodeLite_Project Name="library" Version="10.0.0" InternalType="">
   <VirtualDirectory Name=".github">
     <VirtualDirectory Name="workflows">
-      <File Name=".github/workflows/build.yml"/>
+      <File Name=".github/workflows/build_due.yml"/>
+      <File Name=".github/workflows/build_mega.yml"/>
+      <File Name=".github/workflows/build_nano33iot.yml"/>
+      <File Name=".github/workflows/build_uno.yml"/>
+      <File Name=".github/workflows/build_esp32.yml"/>
+      <File Name=".github/workflows/build_esp8266.yml"/>
     </VirtualDirectory>
     <File Name=".github/stale.yml"/>
   </VirtualDirectory>
