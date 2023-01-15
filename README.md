@@ -11,6 +11,7 @@ Over Serial Line Implementation RTU (OSI 2/OSI 1)
 [![Nano33IoT](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_nano33iot.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_nano33iot.yml) 
 [![Esp8266](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_esp8266.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_esp8266.yml) 
 [![Esp32](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_esp32.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_esp32.yml) 
+[![Teensy](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_teensy.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_teensy.yml) 
 
 ---
 

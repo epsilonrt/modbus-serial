@@ -4,7 +4,8 @@
     Copyright (C) 2014 André Sarmento Barbosa
     https://github.com/epsilonrt/modbus-serial
 
-    Use Servo lib (atmelavr and atmelsam only !)
+    Use Servo lib
+    This library only supports boards with an AVR, SAM, SAMD, NRF52 or STM32F4 processor.
     https://registry.platformio.org/libraries/arduino-libraries/Servo
 */
 
