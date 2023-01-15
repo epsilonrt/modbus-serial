@@ -1,4 +1,4 @@
-name: Uno
+name: Teensy
 
 on:
   push:
