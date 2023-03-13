@@ -118,17 +118,17 @@ In much the same way, the other examples show the use of other methods available
 
 Adds registers and configures initial value if specified.
 
-    bool Coil (offset word, bool value)
-    bool Hreg (offset word, word value)
-    bool Ists (offset word, bool value)
-    bool IReg (offset word, word value)
+    bool setCoil (offset word, bool value)
+    bool setHreg (offset word, word value)
+    bool setIsts (offset word, bool value)
+    bool setIReg (offset word, word value)
 
 Sets a value to the register.
 
-    bool Coil (offset word)
-    word Hreg  (word offset)
-    bool Ists (offset word)
-    word IReg (word offset)
+    bool coil (offset word)
+    word hreg  (word offset)
+    bool ists (offset word)
+    word ireg (word offset)
 
 Returns the value of a register.
 
