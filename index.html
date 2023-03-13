@@ -139,14 +139,14 @@ void setup() {
 void addHreg (offset word, word value)
 void addIsts (offset word, bool value)
 void addIreg (offset word, word value)
-</pre><p> Adds registers and configures initial value if specified. </p><pre class="fragment">bool Coil (offset word, bool value)
-bool Hreg (offset word, word value)
-bool Ists (offset word, bool value)
-bool IReg (offset word, word value)
-</pre><p> Sets a value to the register. </p><pre class="fragment">bool Coil (offset word)
-word Hreg  (word offset)
-bool Ists (offset word)
-word IReg (word offset)
+</pre><p> Adds registers and configures initial value if specified. </p><pre class="fragment">bool setCoil (offset word, bool value)
+bool setHreg (offset word, word value)
+bool setIsts (offset word, bool value)
+bool setIReg (offset word, word value)
+</pre><p> Sets a value to the register. </p><pre class="fragment">bool coil (offset word)
+word hreg  (word offset)
+bool ists (offset word)
+word ireg (word offset)
 </pre><p> Returns the value of a register.</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Contributions</h1>
