@@ -28,8 +28,7 @@ var NAVTREE =
     [ "Modbus Library for Arduino", "index.html", [
       [ "How to", "index.html#autotoc_md2", null ],
       [ "ModbusSerial", "index.html#autotoc_md3", null ],
-      [ "Contributions", "index.html#autotoc_md4", null ],
-      [ "License", "index.html#autotoc_md5", null ]
+      [ "License", "index.html#autotoc_md4", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
