@@ -1,4 +1,4 @@
-# Modbus Library for Arduino
+# Modbus Serial Library for Arduino
 Over Serial Line Implementation RTU (OSI 2/OSI 1)
 
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/epsilonrt/modbus-serial?include_prereleases)](https://github.com/epsilonrt/modbus-serial/releases) 
@@ -36,7 +36,7 @@ By opting for Modbus Serial or Modbus TCP you must include in your sketch the co
 
     #include <ModbusSerial.h>
 
-## ModbusSerial
+## Modbus-Serial
 
 There are five examples that can be accessed from the Arduino IDE or Visual 
 Studio Code with Platformio, once you have installed the library.
@@ -107,7 +107,7 @@ the default value is false.
 This method makes all magic, answering requests and changing the registers if 
 necessary, it should be called only once, early in the loop.
 
-    digitalWrite (LedPin, mb.Coil (Lamp1Coil));
+    digitalWrite (LedPin, mb.coil (Lamp1Coil));
 
 Finally the value of Lamp1Coil register is used to drive the lamp or LED.
 
