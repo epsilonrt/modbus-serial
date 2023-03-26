@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Modbus-Serial: Modbus Library for Arduino</title>
+<title>Modbus-Serial: Modbus Serial Library for Arduino</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,7 +83,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">Modbus Library for Arduino </div>  </div>
+<div class="title">Modbus Serial Library for Arduino </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a>Over Serial Line Implementation RTU (OSI 2/OSI 1)</p>
@@ -108,7 +108,7 @@ How to</h1>
 </ul>
 <p>By opting for Modbus Serial or Modbus TCP you must include in your sketch the corresponding header, eg: </p><pre class="fragment">#include &lt;ModbusSerial.h&gt;
 </pre> <h1><a class="anchor" id="autotoc_md3"></a>
-ModbusSerial</h1>
+Modbus-Serial</h1>
 <p>There are five examples that can be accessed from the Arduino IDE or Visual Studio Code with Platformio, once you have installed the library. Let's look at the example Lamp.ino (only the parts concerning Modbus will be commented): </p><pre class="fragment">#include &lt;ModbusSerial.h&gt;
 </pre><p> Inclusion of the necessary header. </p><pre class="fragment">const int Lamp1Coil = 0;
 </pre><p> Sets the Modbus register to represent a lamp or LED. This value is the offset (0-based) to be placed in its supervisory or testing software. Note that if your software uses offsets 1-based the set value there should be 1, for this example. </p><pre class="fragment">ModbusSerial mb (Serial, SlaveId);
@@ -133,7 +133,7 @@ void setup() {
 </pre><p> The last line configures the <a class="el" href="class_modbus_serial.html" title="Modbus over serial line Class.">ModbusSerial</a> object. </p><pre class="fragment">mb.addCoil (Lamp1Coil);
 </pre><p> Adds the register type Coil (digital output) that will be responsible for activating the LED or lamp and verify their status. The library allows you to set an initial value for the register: </p><pre class="fragment">mb.addCoil (Lamp1Coil, true);
 </pre><p> In this case the register is added and set to true. If you use the first form the default value is false. </p><pre class="fragment">mb.task ();
-</pre><p> This method makes all magic, answering requests and changing the registers if necessary, it should be called only once, early in the loop. </p><pre class="fragment">digitalWrite (LedPin, mb.Coil (Lamp1Coil));
+</pre><p> This method makes all magic, answering requests and changing the registers if necessary, it should be called only once, early in the loop. </p><pre class="fragment">digitalWrite (LedPin, mb.coil (Lamp1Coil));
 </pre><p> Finally the value of Lamp1Coil register is used to drive the lamp or LED.</p>
 <p>In much the same way, the other examples show the use of other methods available in the library: </p><pre class="fragment">void addCoil (offset word, bool value)
 void addHreg (offset word, word value)
