@@ -3,15 +3,17 @@ Over Serial Line Implementation RTU (OSI 2/OSI 1)
 
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/epsilonrt/modbus-serial?include_prereleases)](https://github.com/epsilonrt/modbus-serial/releases) 
 [![PlatformIO Registry](https://badges.registry.platformio.org/packages/epsilonrt/library/modbus-serial.svg)](https://registry.platformio.org/libraries/epsilonrt/modbus-serial) 
+[![Arduino Registry](https://www.ardu-badge.com/badge/Modbus-Serial.svg)](https://www.arduinolibraries.info/libraries/modbus-serial)
 
 [![Framework](https://img.shields.io/badge/Framework-Arduino-blue)](https://www.arduino.cc/)
 [![Uno](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_uno.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_uno.yml) 
 [![Due](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_due.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_due.yml) 
 [![Mega](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_mega.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_mega.yml) 
-[![Nano33IoT](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_nano33iot.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_nano33iot.yml) 
+[![Nano33IoT](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_nano33iot.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_nano33iot.yml)
+[![Teensy](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_teensy.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_teensy.yml)
 [![Esp8266](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_esp8266.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_esp8266.yml) 
 [![Esp32](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_esp32.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_esp32.yml) 
-[![Teensy](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_teensy.yml/badge.svg)](https://github.com/epsilonrt/modbus-serial/actions/workflows/build_teensy.yml) 
+
 
 ---
 
@@ -24,11 +26,11 @@ In the current version the library allows the Arduino operate **as a slave**, su
 
 There are four classes corresponding to five headers that may be used:
 
-* [Modbus](http://github.com/epsilonrt/modbus-arduino ) - Base Library
-* ModbusSerial - Modbus Serial RTU Library (this repository)  
-* [ModbusEthernet](https://github.com/epsilonrt/modbus-ethernet) - Modbus TCP Library (standard Ethernet Shield)   
-* [ModbusEthercard](https://github.com/epsilonrt/modbus-ethercard) - Modbus TCP Library (for ENC28J60 chip)  
-* [ModbusEsp8266AT](https://github.com/epsilonrt/modbus-esp8266at) - Modbus IP Library (for ESP8266 chip with AT firmware)   
+* [Modbus-Arduino](http://github.com/epsilonrt/modbus-arduino ) - Base Library
+* Modbus-Serial - Modbus Serial RTU Library (this repository)  
+* [Modbus-Ethernet](https://github.com/epsilonrt/modbus-ethernet) - Modbus TCP Library (standard Ethernet Shield)   
+* [Modbus-EtherCard](https://github.com/epsilonrt/modbus-ethercard) - Modbus TCP Library (for ENC28J60 chip)  
+* [Modbus-Esp8266AT](https://github.com/epsilonrt/modbus-esp8266at) - Modbus IP Library (for ESP8266 chip with AT firmware)   
 
 By opting for Modbus Serial or Modbus TCP you must include in your sketch the corresponding header, eg:
 
@@ -131,12 +133,6 @@ Sets a value to the register.
     word ireg (word offset)
 
 Returns the value of a register.
-
-Contributions
-=============
-http://github.com/epsilonrt/modbus-arduino  
-prof (at) andresarmento (dot) com  
-epsilonrt (at) gmail (dot) com  
 
 License
 =======
