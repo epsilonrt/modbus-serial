@@ -33,8 +33,6 @@ void setup() {
   MySerial.begin (Baudrate); // works on all boards but the configuration is 8N1 which is incompatible with the MODBUS standard
   // prefer the line below instead if possible
   // MySerial.begin (Baudrate, MB_PARITY_EVEN);
-  while (! MySerial)
-    ;
 
   mb.config (Baudrate);
   mb.setAdditionalServerData ("SWITCH"); // for Report Server ID function (0x11)
