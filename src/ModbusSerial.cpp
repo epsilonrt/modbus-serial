@@ -85,7 +85,7 @@ bool ModbusSerial::receive (byte* frame) {
   word crc = ( (frame[_len - 2] << 8) | frame[_len - 1]);
 
   //Slave Check
-  if (address != 0xFF && address != getSlaveId()) {
+  if (address != BroadcastAddress && address != getSlaveId()) {
     
     return false;
   }
@@ -101,7 +101,7 @@ bool ModbusSerial::receive (byte* frame) {
   receivePDU (frame + 1);
   
   //No reply to Broadcasts
-  if (address == 0xFF) {
+  if (address == BroadcastAddress) {
     
     _reply = MB_REPLY_OFF;
   }

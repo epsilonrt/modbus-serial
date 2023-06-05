@@ -87,6 +87,11 @@ class ModbusSerial : public Modbus {
      */
     byte getSlaveId();
 
+    /**
+     * @brief Broadcast address
+     */
+    static const byte BroadcastAddress = 0;
+    
   protected:
     bool receive (byte * frame);
     bool sendPDU (byte * pduframe);
