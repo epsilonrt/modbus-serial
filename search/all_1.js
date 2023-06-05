@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['getslaveid_1',['getSlaveId',['../class_modbus_serial.html#adefaff8d3e8f4cfc1d90c9b52d880262',1,'ModbusSerial']]]
+  ['config_1',['config',['../class_modbus_serial.html#a8e5a94f6d398e0468b1b9272997e9ec7',1,'ModbusSerial']]]
 ];

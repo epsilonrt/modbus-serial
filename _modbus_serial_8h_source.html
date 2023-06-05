@@ -115,25 +115,28 @@ $(document).ready(function(){initNavTree('_modbus_serial_8h_source.html',''); in
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
 <div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="class_modbus_serial.html#adefaff8d3e8f4cfc1d90c9b52d880262">   88</a></span>&#160;    <span class="keywordtype">byte</span> <a class="code" href="class_modbus_serial.html#adefaff8d3e8f4cfc1d90c9b52d880262">getSlaveId</a>();</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">bool</span> receive (<span class="keywordtype">byte</span> * frame);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">bool</span> sendPDU (<span class="keywordtype">byte</span> * pduframe);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">bool</span> send (<span class="keywordtype">byte</span> * frame);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">void</span> reportServerId();</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    Stream * m_stream;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">int</span>   m_txenPin;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">byte</span>  m_slaveId;</div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="class_modbus_serial.html#a863231e0bb5c611223fea3d907bf3d68">   93</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">byte</span> <a class="code" href="class_modbus_serial.html#a863231e0bb5c611223fea3d907bf3d68">BroadcastAddress</a> = 0;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">bool</span> receive (<span class="keywordtype">byte</span> * frame);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">bool</span> sendPDU (<span class="keywordtype">byte</span> * pduframe);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">bool</span> send (<span class="keywordtype">byte</span> * frame);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">void</span> reportServerId();</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_t15; <span class="comment">// inter character time out (us)</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_t35; <span class="comment">// frame delay  (us)</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    word calcCrc (<span class="keywordtype">byte</span> address, <span class="keywordtype">byte</span> * pduframe, <span class="keywordtype">byte</span> pdulen);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;};</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    Stream * m_stream;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">int</span>   m_txenPin;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">byte</span>  m_slaveId;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_t15; <span class="comment">// inter character time out (us)</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_t35; <span class="comment">// frame delay  (us)</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    word calcCrc (<span class="keywordtype">byte</span> address, <span class="keywordtype">byte</span> * pduframe, <span class="keywordtype">byte</span> pdulen);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;};</div>
 <div class="ttc" id="aclass_modbus_serial_html"><div class="ttname"><a href="class_modbus_serial.html">ModbusSerial</a></div><div class="ttdoc">Modbus over serial line Class.</div><div class="ttdef"><b>Definition:</b> ModbusSerial.h:48</div></div>
 <div class="ttc" id="aclass_modbus_serial_html_a3b604de4664b770b0c4cac3d69ebd276"><div class="ttname"><a href="class_modbus_serial.html#a3b604de4664b770b0c4cac3d69ebd276">ModbusSerial::setSlaveId</a></div><div class="ttdeci">void setSlaveId(byte slaveId)</div><div class="ttdoc">Change the value of slave identifier.</div></div>
+<div class="ttc" id="aclass_modbus_serial_html_a863231e0bb5c611223fea3d907bf3d68"><div class="ttname"><a href="class_modbus_serial.html#a863231e0bb5c611223fea3d907bf3d68">ModbusSerial::BroadcastAddress</a></div><div class="ttdeci">static const byte BroadcastAddress</div><div class="ttdoc">Broadcast address.</div><div class="ttdef"><b>Definition:</b> ModbusSerial.h:93</div></div>
 <div class="ttc" id="aclass_modbus_serial_html_a8e5a94f6d398e0468b1b9272997e9ec7"><div class="ttname"><a href="class_modbus_serial.html#a8e5a94f6d398e0468b1b9272997e9ec7">ModbusSerial::config</a></div><div class="ttdeci">void config(unsigned long baud)</div><div class="ttdoc">Configure ModbusSerial object.</div></div>
 <div class="ttc" id="aclass_modbus_serial_html_a9ae19d9d4d0943f9223c42649d243343"><div class="ttname"><a href="class_modbus_serial.html#a9ae19d9d4d0943f9223c42649d243343">ModbusSerial::ModbusSerial</a></div><div class="ttdeci">ModbusSerial(Stream &amp;port, byte slaveId, int txenPin=-1)</div><div class="ttdoc">Constructor.</div></div>
 <div class="ttc" id="aclass_modbus_serial_html_ad47e2b6a70d42a106a1a55a515e2f33a"><div class="ttname"><a href="class_modbus_serial.html#ad47e2b6a70d42a106a1a55a515e2f33a">ModbusSerial::task</a></div><div class="ttdeci">void task()</div><div class="ttdoc">Task that performs all operations on MODBUS.</div></div>

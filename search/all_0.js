@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['config_0',['config',['../class_modbus_serial.html#a8e5a94f6d398e0468b1b9272997e9ec7',1,'ModbusSerial']]]
+  ['broadcastaddress_0',['BroadcastAddress',['../class_modbus_serial.html#a863231e0bb5c611223fea3d907bf3d68',1,'ModbusSerial']]]
 ];
